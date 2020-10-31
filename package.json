@@ -1,0 +1,11 @@
+{
+  "name": "librero",
+  "version": "0.0.0",
+  "description": "OpenSource site to freely share books.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "NemeSnz",
+  "license": "ISC"
+}
