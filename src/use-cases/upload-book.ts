@@ -6,9 +6,10 @@ const makeUploadBook = ({
   bookRepository,
 }: UploadBookOutputPort) => async ({
   book: input,
+  file,
 }: UploadBookInput): Promise<Book> => {
-  const book = await bookRepository.add(input);
-  const { url } = await bookStorage.save(book);
+  const { url } = await bookStorage.save({ file });
+  const book = await bookRepository.add({ ...input, url });
   return { ...book, url };
 };
 

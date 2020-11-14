@@ -18,16 +18,19 @@ export const resolvers: Resolvers = {
   Mutation: {
     uploadBook: async (
       _root: unknown,
-      { data: { bookCreateInput } }: { data: UploadFileInput },
+      {
+        data: { bookCreateInput, file: filePromise },
+      }: { data: UploadFileInput },
       { prisma }: Context,
     ): Promise<Book> => {
       const bookRepository = new BookPrismaRepository(prisma);
       const bookStorage = new BookStorageImplementation();
-      const controllerImp = controller.makeUploadBookController(
+      const file = await filePromise;
+      const readStream = file.createReadStream();
+      const book = await controller.makeUploadBookController(
         bookRepository,
         bookStorage,
-      );
-      const book = await controllerImp(bookCreateInput);
+      )(bookCreateInput, { ...file, readStream });
       return book;
     },
   },

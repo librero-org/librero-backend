@@ -1,3 +1,4 @@
+import { File } from '../file';
 import { Repository } from '../repository';
 
 export type Book = {
@@ -8,7 +9,7 @@ export type Book = {
 };
 
 export interface BookStorage {
-  save: (book: Book) => Promise<{ url: string }>;
+  save: (args: { file: File }) => Promise<{ url: string }>;
 }
 
 export type SaveBookInput = {

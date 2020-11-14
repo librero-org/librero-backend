@@ -1,4 +1,5 @@
 import { Book, BookStorage } from '../../entities/book/types';
+import { File } from '../../entities/file';
 import { Repository } from '../../entities/repository';
 import uploadBook from '../../use-cases/upload-book';
 
@@ -12,11 +13,18 @@ const makeGetBooksController = (
 const makeUploadBookController = (
   bookRepository: Repository<Book>,
   bookStorage: BookStorage,
-) => async (input: { title: string; isbn?: string }): Promise<Book> => {
-  const book = await uploadBook({ bookStorage, bookRepository })({
-    book: input,
+) => async (
+  book: {
+    title: string;
+    isbn?: string;
+  },
+  file: File,
+): Promise<Book> => {
+  const persistedBook = await uploadBook({ bookStorage, bookRepository })({
+    book,
+    file,
   });
-  return { ...book, id: 1 };
+  return { ...persistedBook, id: 1 };
 };
 
 const controller = { makeGetBooksController, makeUploadBookController };
