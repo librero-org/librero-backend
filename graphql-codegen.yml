@@ -15,7 +15,6 @@ generates:
       afterOneFileWrite:
         - sed -i '' 's/{}/Record<string, any>/g'
         - sed -i '' '1s/^/\/* eslint-disable @typescript-eslint\/no-explicit-any *\//'
-        - sed -i '' '1s/^/import { FileUpload } from \"graphql-upload\";/'
         - eslint --fix
   graphql-schema.graphql:
     plugins:

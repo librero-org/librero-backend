@@ -1,11 +1,14 @@
-import { PrismaClient } from '@prisma/client';
+import { Emailer } from '../../entities/emailer';
+import { EmailerNodemailer } from '../emailer/emailer-nodemailer';
 
-const prisma = new PrismaClient();
+const emailer = new EmailerNodemailer();
 
 export interface Context {
-  prisma: PrismaClient;
+  services: {
+    emailer: Emailer;
+  };
 }
 
 export function createContext(): Context {
-  return { prisma };
+  return { services: { emailer } };
 }

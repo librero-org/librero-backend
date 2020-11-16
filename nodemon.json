@@ -14,5 +14,5 @@
         "src"
     ],
     "ext": "ts,gql",
-    "exec": "ts-node src/index.ts"
+    "exec": "ts-node -r dotenv-safe/config src/index.ts"
 }

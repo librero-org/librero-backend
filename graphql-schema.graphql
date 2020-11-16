@@ -3,23 +3,13 @@ schema {
   mutation: Mutation
 }
 type Query {
-  books: [Book!]!
+  hello: String!
 }
 type Mutation {
-  uploadBook(data: UploadFileInput!): Book!
+  sendContactEmail(data: SendContactEmailInput!): Boolean!
 }
-input UploadFileInput {
-  file: Upload!
-  bookCreateInput: BookCreateInput!
+input SendContactEmailInput {
+  fromName: String!
+  fromEmailAddress: String!
+  message: String!
 }
-input BookCreateInput {
-  title: String!
-  isbn: String
-}
-type Book {
-  id: Int!
-  title: String!
-  isbn: String
-  url: String
-}
-scalar Upload
