@@ -10,7 +10,9 @@
     "start": "nodemon",
     "start:prod": "node dist/index.js",
     "codegen:graphql": "graphql-codegen --config graphql-codegen.yml",
-    "prestart": "npm run codegen:graphql"
+    "codegen": "npm run codegen:graphql",
+    "prestart": "npm run codegen",
+    "prebuild": "npm run codegen"
   },
   "author": "NemeSnz",
   "license": "ISC",
