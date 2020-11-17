@@ -11,11 +11,6 @@ generates:
       maybeValue: T
       scalars:
         Upload: "Promise<FileUpload>"
-    hooks:
-      afterOneFileWrite:
-        - sed -i '' 's/{}/Record<string, any>/g'
-        - sed -i '' '1s/^/\/* eslint-disable @typescript-eslint\/no-explicit-any *\//'
-        - eslint --fix
   graphql-schema.graphql:
     plugins:
       - schema-ast

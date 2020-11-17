@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ['src/generated/**'],
   parser: '@typescript-eslint/parser', // Specifies the ESLint parser
   parserOptions: {
     ecmaVersion: 2019, // Allows for the parsing of modern ECMAScript features
