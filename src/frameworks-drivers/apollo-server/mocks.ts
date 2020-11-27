@@ -12,6 +12,7 @@ export const mocks = {
           ? [faker.name.findName()]
           : [faker.name.findName(), faker.name.findName()],
       url: 'https://picsum.photos/260/400',
+      coverUrl: 'https://picsum.photos/260/400',
     };
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

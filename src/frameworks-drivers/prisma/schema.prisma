@@ -10,4 +10,5 @@ model Book {
   title String
   authors String
   url String?
+  coverUrl String?
 }

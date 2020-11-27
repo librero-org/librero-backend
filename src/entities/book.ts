@@ -4,4 +4,5 @@ export type Book = {
   title: string;
   authors: string[];
   url?: string;
+  coverUrl: string;
 };
