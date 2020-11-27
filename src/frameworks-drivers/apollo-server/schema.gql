@@ -1,0 +1,14 @@
+type Query {
+  hello: String!
+}
+
+type Mutation {
+  sendContactEmail(data: SendContactEmailInput!): Boolean!
+}
+
+input SendContactEmailInput {
+  fromName: String!
+  fromEmailAddress: String!
+  message: String!
+}
+
