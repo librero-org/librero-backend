@@ -4,6 +4,7 @@ schema {
 }
 type Query {
   hello: String!
+  books: [Book!]!
 }
 type Mutation {
   sendContactEmail(data: SendContactEmailInput!): Boolean!
@@ -12,4 +13,10 @@ input SendContactEmailInput {
   fromName: String!
   fromEmailAddress: String!
   message: String!
+}
+type Book {
+  id: ID!
+  title: String!
+  authors: [String!]!
+  url: String
 }

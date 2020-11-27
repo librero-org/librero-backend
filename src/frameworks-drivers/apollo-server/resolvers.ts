@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { GraphqlController } from '../../delivery/controllers';
-import { Resolvers } from '../../generated/graphql';
+import { Book, Resolvers } from '../../generated/graphql';
 export const resolvers: Resolvers = {
   Query: {
     hello: (): string => 'world',
+    books: (_root, _args, { services }): Promise<Book[]> =>
+      GraphqlController.getBooks(services.bookRepository),
   },
   Mutation: {
     sendContactEmail: async (
