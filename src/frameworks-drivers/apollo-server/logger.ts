@@ -5,7 +5,8 @@ import {
   GraphQLRequestListener,
   ApolloServerPlugin,
 } from 'apollo-server-plugin-base';
-const logger = Pino({
+
+export const baseLogger = Pino({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
   name: 'Librero Backend',
 });
@@ -25,6 +26,7 @@ export const loggerPlugin: ApolloServerPlugin<TContext> = {
         operationName,
         source,
         request,
+        logger,
       }: WithRequired<
         GraphQLRequestContext<TContext>,
         | 'metrics'
@@ -40,28 +42,31 @@ export const loggerPlugin: ApolloServerPlugin<TContext> = {
           operationName,
           source,
           lifecycle,
+          msg: 'Request',
         });
       },
       willSendResponse({
         response,
         errors,
+        logger,
       }: WithRequired<
         GraphQLRequestContext<TContext>,
         'metrics' | 'response' | 'logger'
       >) {
         if (errors) return;
         const lifecycle = 'willSendResponse';
-        logger.info({ response, lifecycle });
+        logger.info({ response, lifecycle, msg: 'Send Response' });
       },
       didEncounterErrors({
         source,
         errors,
+        logger,
       }: WithRequired<
         GraphQLRequestContext<TContext>,
         'metrics' | 'source' | 'errors' | 'logger'
       >) {
         const lifecycle = 'didEncounterErrors';
-        logger.error({ source, errors, lifecycle });
+        logger.error({ source, errors, lifecycle, mg: 'Encountered Errors' });
         return;
       },
     };

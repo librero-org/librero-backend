@@ -1,5 +1,6 @@
 type Query {
   hello: String!
+  books: [Book!]!
 }
 
 type Mutation {
@@ -12,3 +13,10 @@ input SendContactEmailInput {
   message: String!
 }
 
+type Book {
+  id: ID!
+  title: String!
+  authors: [String!]!
+  url: String
+  coverUrl: String!
+}

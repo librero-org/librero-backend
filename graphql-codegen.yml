@@ -11,6 +11,7 @@ generates:
       maybeValue: T
       scalars:
         Upload: "Promise<FileUpload>"
+        ID: "string | number"
   graphql-schema.graphql:
     plugins:
       - schema-ast
