@@ -19,5 +19,20 @@ export const resolvers: Resolvers = {
       );
       return result;
     },
+    uploadBook: async (
+      _root,
+      { data },
+      { services: { fileStorage, bookRepository } },
+    ): Promise<Book> => {
+      const file = await data.file;
+      const result = await GraphqlController.uploadBook(
+        { fileStorage, bookRepository },
+        {
+          file: { ...file, readStream: file.createReadStream() },
+          bookCreateInput: data.book,
+        },
+      );
+      return result;
+    },
   },
 };

@@ -66,7 +66,7 @@ export const loggerPlugin: ApolloServerPlugin<TContext> = {
         'metrics' | 'source' | 'errors' | 'logger'
       >) {
         const lifecycle = 'didEncounterErrors';
-        logger.error({ source, errors, lifecycle, mg: 'Encountered Errors' });
+        logger.error({ source, errors, lifecycle, msg: 'Encountered Errors' });
         return;
       },
     };
