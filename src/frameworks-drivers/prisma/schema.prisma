@@ -11,4 +11,6 @@ model Book {
   authors String
   url String?
   coverUrl String?
+
+  @@unique([title, authors])
 }

@@ -6,3 +6,8 @@ export type Book = {
   url?: string;
   coverUrl: string;
 };
+export type BookCreateInput = {
+  title: string;
+  authors: string[];
+  url?: string;
+};

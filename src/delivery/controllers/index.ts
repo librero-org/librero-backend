@@ -3,6 +3,11 @@ import { Emailer } from '../../entities/emailer';
 import { Repository } from '../../entities/repository';
 import { makeGetBooks } from '../../use-cases/get-books';
 import { makeSendEmail } from '../../use-cases/send-email';
+import {
+  makeUploadBook,
+  UploadBookInput,
+  UploadBookPort,
+} from '../../use-cases/upload-book';
 
 export class GraphqlController {
   static async sendContactEmail(
@@ -18,5 +23,13 @@ export class GraphqlController {
     const useCase = makeGetBooks({ bookRepository });
     const books = await useCase();
     return books;
+  }
+  static async uploadBook(
+    port: UploadBookPort,
+    input: UploadBookInput,
+  ): Promise<Book> {
+    const useCase = makeUploadBook(port);
+    const book = await useCase(input);
+    return { ...book, coverUrl: '' };
   }
 }

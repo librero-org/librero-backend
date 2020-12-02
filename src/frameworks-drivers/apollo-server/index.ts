@@ -9,7 +9,7 @@ export const server = new ApolloServer({
   context: createContext,
   plugins: [loggerPlugin],
   logger: baseLogger.child({ origin: 'ApolloServer' }),
+  mocks: process.env.MOCKS ? mocks : false,
   typeDefs,
   resolvers,
-  mocks,
 });

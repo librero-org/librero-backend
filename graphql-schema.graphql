@@ -8,11 +8,16 @@ type Query {
 }
 type Mutation {
   sendContactEmail(data: SendContactEmailInput!): Boolean!
+  uploadBook(data: UploadBookInput!): Book!
 }
 input SendContactEmailInput {
   fromName: String!
   fromEmailAddress: String!
   message: String!
+}
+input UploadBookInput {
+  book: BookCreateInput!
+  file: Upload!
 }
 type Book {
   id: ID!
@@ -21,3 +26,8 @@ type Book {
   url: String
   coverUrl: String!
 }
+input BookCreateInput {
+  title: String!
+  authors: [String!]!
+}
+scalar Upload

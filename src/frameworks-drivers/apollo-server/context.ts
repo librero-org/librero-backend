@@ -1,7 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import { Emailer } from '../../entities/emailer';
+import { FileStorage } from '../../entities/file';
 import { EmailerNodemailer } from '../emailer/emailer-nodemailer';
 import { BookRepository } from '../repositories/book-repository';
+import { FileStorageS3 } from '../storage/file-storage';
 import { baseLogger } from './logger';
 const emailer = new EmailerNodemailer();
 
@@ -24,13 +26,16 @@ prisma.$on('warn', (event) =>
 
 const bookRepository = new BookRepository(prisma);
 
+const fileStorage = new FileStorageS3(process.env.S3_BUCKET || '');
+
 export interface Context {
   services: {
     emailer: Emailer;
     bookRepository: BookRepository;
+    fileStorage: FileStorage;
   };
 }
 
 export function createContext(): Context {
-  return { services: { emailer, bookRepository } };
+  return { services: { emailer, bookRepository, fileStorage } };
 }
