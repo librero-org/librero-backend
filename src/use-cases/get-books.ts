@@ -5,8 +5,19 @@ export type GetBooksPort = {
   bookRepository: Repository<Book>;
 };
 
-export const getBooks = ({ bookRepository }: GetBooksPort): Promise<Book[]> =>
-  bookRepository.getMany();
+export type GetBooksInput = {
+  pagination: {
+    offset: number;
+    limit: number;
+  };
+};
 
-export const makeGetBooks = (port: GetBooksPort) => (): Promise<Book[]> =>
-  getBooks(port);
+export const getBooks = (
+  { bookRepository }: GetBooksPort,
+  { pagination: { offset = 0, limit = 12 } }: GetBooksInput,
+): Promise<Book[]> => bookRepository.getMany({ offset, limit });
+
+export const makeGetBooks = (
+  port: GetBooksPort,
+  input: GetBooksInput,
+) => (): Promise<Book[]> => getBooks(port, input);

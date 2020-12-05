@@ -4,7 +4,11 @@ schema {
 }
 type Query {
   hello: String!
-  books: [Book!]!
+  books(pagination: OffsetPaginationInput = {offset: 0, limit: 12}): [Book!]!
+}
+input OffsetPaginationInput {
+  offset: Int!
+  limit: Int!
 }
 type Mutation {
   sendContactEmail(data: SendContactEmailInput!): Boolean!

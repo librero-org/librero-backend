@@ -7,8 +7,17 @@ const PLACE_HOLDER_COVER_URL = 'https://picsum.photos/260/400';
 export class BookRepository implements Repository<Book> {
   constructor(private prisma: PrismaClient) {}
 
-  async getMany(): Promise<Book[]> {
-    const books = await this.prisma.book.findMany();
+  async getMany({
+    offset,
+    limit,
+  }: {
+    offset: number;
+    limit: number;
+  }): Promise<Book[]> {
+    const books = await this.prisma.book.findMany({
+      skip: offset,
+      take: limit,
+    });
     return books.map((book) => this.toEntity(book));
   }
   async save(bookCreateInput: BookCreateInput): Promise<Book> {

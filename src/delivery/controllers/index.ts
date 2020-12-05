@@ -19,8 +19,11 @@ export class GraphqlController {
     console.log('send email info', info);
     return !!info;
   }
-  static async getBooks(bookRepository: Repository<Book>): Promise<Book[]> {
-    const useCase = makeGetBooks({ bookRepository });
+  static async getBooks(
+    bookRepository: Repository<Book>,
+    pagination: { offset: number; limit: number },
+  ): Promise<Book[]> {
+    const useCase = makeGetBooks({ bookRepository }, { pagination });
     const books = await useCase();
     return books;
   }
