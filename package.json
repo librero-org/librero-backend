@@ -12,6 +12,7 @@
     "codegen:graphql": "graphql-codegen --config graphql-codegen.yml",
     "codegen:prisma": "prisma generate",
     "codegen": "npm run codegen:graphql && npm run codegen:prisma",
+    "db:preview": "prisma db push --preview-feature",
     "prestart": "npm run codegen",
     "prebuild": "npm run codegen"
   },
