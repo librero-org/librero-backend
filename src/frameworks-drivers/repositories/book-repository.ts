@@ -10,13 +10,18 @@ export class BookRepository implements Repository<Book> {
   async getMany({
     offset,
     limit,
+    orderBy,
   }: {
     offset: number;
     limit: number;
+    orderBy?: {
+      [P in keyof Book]?: 'ASC' | 'DESC';
+    };
   }): Promise<Book[]> {
     const books = await this.prisma.book.findMany({
       skip: offset,
       take: limit,
+      orderBy: this.mapOrderByObject(orderBy),
     });
     return books.map((book) => this.toEntity(book));
   }
@@ -36,5 +41,19 @@ export class BookRepository implements Repository<Book> {
       coverUrl: prismaBook.coverUrl || PLACE_HOLDER_COVER_URL,
       authors,
     };
+  }
+  private mapOrderByObject(
+    orderBy: {
+      [P in keyof Book]?: 'ASC' | 'DESC';
+    } = {},
+  ) {
+    if (!orderBy) return undefined;
+    return Object.fromEntries(
+      Object.entries(orderBy).map(([k, v]) => {
+        if (v === 'ASC') return [k, 'asc'];
+        if (v === 'DESC') return [k, 'desc'];
+        return [k, undefined];
+      }),
+    );
   }
 }

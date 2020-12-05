@@ -22,9 +22,10 @@ export class GraphqlController {
   static async getBooks(
     bookRepository: Repository<Book>,
     pagination: { offset: number; limit: number },
+    orderBy?: { [P in keyof Book]?: 'ASC' | 'DESC' },
   ): Promise<Book[]> {
-    const useCase = makeGetBooks({ bookRepository }, { pagination });
-    const books = await useCase();
+    const useCase = makeGetBooks({ bookRepository });
+    const books = await useCase({ pagination, orderBy });
     return books;
   }
   static async uploadBook(

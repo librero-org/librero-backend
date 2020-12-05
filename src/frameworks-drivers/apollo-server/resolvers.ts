@@ -4,8 +4,8 @@ import { Book, Resolvers } from '../../generated/graphql';
 export const resolvers: Resolvers = {
   Query: {
     hello: (): string => 'world',
-    books: (_root, { pagination }, { services }): Promise<Book[]> =>
-      GraphqlController.getBooks(services.bookRepository, pagination),
+    books: (_root, { pagination, orderBy }, { services }): Promise<Book[]> =>
+      GraphqlController.getBooks(services.bookRepository, pagination, orderBy),
   },
   Mutation: {
     sendContactEmail: async (

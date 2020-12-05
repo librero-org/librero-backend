@@ -4,7 +4,7 @@ schema {
 }
 type Query {
   hello: String!
-  books(pagination: OffsetPaginationInput = {offset: 0, limit: 12}): [Book!]!
+  books(pagination: OffsetPaginationInput = {offset: 0, limit: 12}, orderBy: BookOrderByInput): [Book!]!
 }
 input OffsetPaginationInput {
   offset: Int!
@@ -30,8 +30,16 @@ type Book {
   url: String
   coverUrl: String!
 }
+input BookOrderByInput {
+  title: OrderBy
+  authors: OrderBy
+}
 input BookCreateInput {
   title: String!
   authors: [String!]!
+}
+enum OrderBy {
+  ASC
+  DESC
 }
 scalar Upload

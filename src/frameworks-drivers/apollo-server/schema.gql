@@ -3,7 +3,7 @@ type Query {
   books(pagination: OffsetPaginationInput = {
     offset: 0
     limit: 12
-  }): [Book!]!
+  }, orderBy: BookOrderByInput): [Book!]!
 }
 
 input OffsetPaginationInput {
@@ -35,9 +35,19 @@ type Book {
   coverUrl: String!
 }
 
+input BookOrderByInput {
+  title: OrderBy
+  authors: OrderBy
+}
+
 input BookCreateInput {
   title: String!
   authors: [String!]!
+}
+
+enum OrderBy {
+  ASC
+  DESC
 }
 
 scalar Upload
