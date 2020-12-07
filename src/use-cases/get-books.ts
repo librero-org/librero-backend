@@ -5,8 +5,22 @@ export type GetBooksPort = {
   bookRepository: Repository<Book>;
 };
 
-export const getBooks = ({ bookRepository }: GetBooksPort): Promise<Book[]> =>
-  bookRepository.getMany();
+export type GetBooksInput = {
+  pagination: {
+    offset: number;
+    limit: number;
+  };
+  orderBy?: {
+    tite?: 'ASC' | 'DESC';
+    authors?: 'ASC' | 'DESC';
+  };
+};
 
-export const makeGetBooks = (port: GetBooksPort) => (): Promise<Book[]> =>
-  getBooks(port);
+export const getBooks = (
+  { bookRepository }: GetBooksPort,
+  { pagination: { offset = 0, limit = 12 }, orderBy }: GetBooksInput,
+): Promise<Book[]> => bookRepository.getMany({ offset, limit, orderBy });
+
+export const makeGetBooks = (port: GetBooksPort) => (
+  input: GetBooksInput,
+): Promise<Book[]> => getBooks(port, input);
